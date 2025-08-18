@@ -11,28 +11,30 @@
     "looper-ts": "./src/cmd.ts"
   },
   "scripts": {
-    "build": "tsc",
-    "check": "lint && typecheck",
+    "build": "tsc -p tsconfig.build.json",
+    "check": "bun run lint && bun run typecheck",
     "clean": "rm -r dist",
     "coverage": "vitest: --coverage",
     "coverage:bun": "bun test --coverage",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
     "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx --fix",
+    "test": "vitest",
     "test:vite": "vitest",
-    "typecheck": "tsc --no-emit"
+    "typecheck": "tsc -p tsconfig.build.json --noEmit"
   },
   "dependencies": {
     "@looper-utils/fs": "*",
-    "yargs": "latest",
     "@types/yargs": "latest",
     "pkg-dir": "latest",
     "sort-package-json": "latest",
-    "type-fest": "^4.41.0"
+    "type-fest": "^4.41.0",
+    "yargs": "latest"
   },
   "devDependencies": {
     "@types/bun": "latest",
     "@types/node": "^24.2.1",
     "@vitest/coverage-v8": "latest",
+    "depcheck": "latest",
     "eslint": "latest",
     "eslint-config-prettier": "latest",
     "eslint-plugin-prettier": "latest",

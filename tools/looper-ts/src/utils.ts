@@ -1,100 +1,88 @@
-import * as nodePath from 'node:path';
-import * as nodeCp   from 'node:child_process';
+import * as nodeCP   from 'node:child_process';
 import * as nodeUrl  from 'node:url';
-import * as nodeUtil from 'node:util';
-import {isFile, rm, isDirectory, mkdir, readFile, writeFile, readDir, getStats} from '@looper-utils/fs';
+import * as nodePath from 'node:path';
 import { packageDirectory } from 'pkg-dir';
-import { sortPackageJson } from 'sort-package-json';
-import type { LooperConfig } from './types';
+import { readDir } from '@looper-utils/fs';
 
-const exec = nodeUtil.promisify(nodeCp.exec);
-
-const rsc = await (async ()=>{
-  const thisFile = nodeUrl.fileURLToPath(import.meta.url);
-  const cwd      = nodePath.dirname(thisFile);
-  const pkgDir   = await packageDirectory({cwd}) as string;
-  return nodePath.join(pkgDir,  "rsc");
-})();
-
-async function setupPackageJson(dir: string, cfg: LooperConfig){
-  const packageJsonPath = nodePath.join(dir, 'package.json');
-  if(!isFile(packageJsonPath)) throw new Error();
-  const packageJson = JSON.parse( (await readFile(packageJsonPath)).toString() );
-  if(packageJson.main    ) delete packageJson.main;
-  if(packageJson.module  ) delete packageJson.module;
-  if(!packageJson.exports){
-    packageJson.exports = { ".": { import: "./src/index.ts" } };
-  }else{
-    // error check if necessary
+let looperTsToolDir: string|null = null;
+export async function getLooperTsToolDir(){
+  if(!looperTsToolDir){
+    const thisFile = nodeUrl.fileURLToPath(import.meta.url);
+    const cwd      = nodePath.dirname(thisFile);
+    looperTsToolDir = await packageDirectory({cwd}) as string;
   }
-
-  packageJson.scripts = {
-    ... (packageJson.scripts || {}),
-    clean: "rm -r dist",
-    build: "tsc -p tsconfig.build.json",
-    'coverage:bun': "bun test --coverage",
-    check: 'bun run lint && bun run typecheck',
-    typecheck: "tsc -p tsconfig.build.json --noEmit",
-    'test': "vitest",
-    'coverage': 'vitest: --coverage',
-    lint: "eslint . --ext .ts,.tsx,.js,.jsx",
-    "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx --fix",
-  };
-
-  packageJson.devDependencies = {
-    ... (packageJson.devDependencies || {}),
-    "looper-ts": "*",
-    vitest: 'latest',
-    "@vitest/coverage-v8": 'latest',
-    depcheck: 'latest',
-    eslint: "latest",
-    "eslint-config-prettier": "latest",
-    "eslint-plugin-prettier": "latest",
-  };
-
-  cfg.packageJson(packageJson);
-
-  await writeFile(packageJsonPath, JSON.stringify( sortPackageJson( packageJson ), null, 2));
+  return looperTsToolDir;
 }
 
-async function copyResources(dir: string){
-  for(const dirent of await readDir(rsc)){
-    const {name} = dirent;
-    const src = nodePath.join(rsc, name);
-    const dst = nodePath.join(dir, name);
-    if(dirent.isDirectory()){
-    }else{
-      const content = await readFile(src);
-      await writeFile( dst, content );
-    }
+let rscDir: string|null = null;
+export async function getRscDir(){
+  if(!rscDir){
+    rscDir =  nodePath.join(await getLooperTsToolDir(),  "rsc");
   }
+  return rscDir;
 }
 
-async function getConfig(dir: string):Promise<LooperConfig>{
-  const looperConfigTs = nodePath.join(dir, 'looper.config.ts');
-  return {
-    packageJson(_){},
-    ... await (async()=>{
-      if(!(await isFile(looperConfigTs))) return {};
-      return (await import( looperConfigTs ) as any).default || {};
-    })()};
+let wsDir: string|null = null;
+export async function getWsDir(){
+  if(!wsDir){
+    const toolDir = await getLooperTsToolDir();
+    wsDir = await packageDirectory({cwd: nodePath.dirname(toolDir)}) as string;
+  }
+  return wsDir;
 }
 
-export async function setup(dir:string){
-  //if(!(await getStats(nodePath.join(dir, '.git')))) await exec('git init', { cwd: dir });
-
-  if(!(await isFile(nodePath.join(dir, 'package.json')))){
-    await exec('bun init -y', { cwd: dir });
-    const indexTs = nodePath.join(dir, 'index.ts');
-    if(await isFile(indexTs)) await rm(indexTs);
+let allProjects: string[]|null = null;
+export async function getAllProjects(){
+  if(!allProjects){
+    const wsdir = await getWsDir();
+    const wsDirs = await Promise.all([
+      nodePath.join(wsdir, 'tools'),
+      ... [... await readDir(nodePath.join(wsdir, 'ws'))].map((e:any)=>nodePath.join(wsdir, 'ws', e.name))
+    ].map(async (dir)=>{
+      return [... await readDir(dir)].map((e:any)=>nodePath.join(dir, e.name))
+    }));
+    allProjects = wsDirs.flat();
   }
+  return allProjects;
+}
 
-  const src = nodePath.join(dir, 'src');
-  if(!(await isDirectory(src))){
-    await mkdir(src);
-  }
+export async function projectToGhRepos(project:string):Promise<string|null>{
+  const local = nodePath.relative(await getWsDir(), project);
+  if(local.match(/^tools\b/)) return null;
+  return local.replace(/^ws\b/, 'ts').replace(/\//g, '--');
+}
 
-  const cfg = await getConfig(dir);
-  await setupPackageJson(dir, cfg);
-  await copyResources(dir);
+export interface runCommandResult {
+status: number|null;
+stdout: string;
+stderr: string;
+}
+export interface runCommandOpt {
+echoOff?: boolean;
+noError?: boolean;
+[key:string]: any;
+}
+export async function runCommand(cmd:string, args:string[] = [], opt:runCommandOpt = {}):Promise<runCommandResult>{
+  return new Promise((cont)=>{
+    if(!opt.echoOff) console.log('runCommand:', cmd, ... args);
+    const proc = nodeCP.spawn(cmd, args, opt as any);
+    const stdout:string[] = [];
+    const stderr:string[] = [];
+    proc.stdout.on('data', data => {
+      stdout.push(String(data));
+      if(!opt.echoOff) process.stdout.write(data);
+    });
+    proc.stderr.on('data', data => {
+      stderr.push(String(data));
+      if(!opt.echoOff) process.stderr.write(data);
+    });
+    proc.on('exit', (status)=>{
+      if(status !== 0 && !opt.noError)
+        throw new Error(`Process was failed: (exit code ${status})`);
+      cont({
+        status,
+        stdout: stdout.join(''),
+        stderr: stderr.join('')
+      }); });
+  });
 }
