@@ -8,7 +8,11 @@ export async function isReposClean(dir:string):Promise<boolean>{
   return true;
 }
 
-
+export async function hasUnpushedChange(dir:string):Promise<boolean>{
+  const {stdout} = await runCommand('git', ['status'],
+    { cwd: dir, env: {LANG: 'C'}, echoOff: true, noError: true});
+  return !!(stdout.match(/push/));
+}
 
 export async function isReposExists(repos:string){
   console.log(`Checking '${repos}' is being ...`);
