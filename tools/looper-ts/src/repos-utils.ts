@@ -9,7 +9,7 @@ export async function isReposClean(dir:string):Promise<boolean>{
 }
 
 export async function hasUnpushedChange(dir:string):Promise<boolean>{
-  const {stdout} = await runCommand('git', ['status'],
+  const {stdout} = await runCommand('git', ['log', 'origin/main..main'],
     { cwd: dir, env: {LANG: 'C'}, echoOff: true, noError: true});
   return !!(stdout.match(/push/));
 }
