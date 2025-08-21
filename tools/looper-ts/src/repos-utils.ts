@@ -3,10 +3,12 @@ import { getStats, rmdir } from "@looper-utils/fs";
 import { projectToGhRepos, runCommand } from "./utils";
 
 export async function isReposClean(dir:string):Promise<boolean>{
-  const {stdout} = await runCommand('git', ['status'], { cwd: dir });
+  const {stdout} = await runCommand('git', ['status'], { cwd: dir, env: {LANG:'C'} });
   if(stdout.match(/\bnothing to commit, working tree clean/)) return false;
   return true;
 }
+
+
 
 export async function isReposExists(repos:string){
   console.log(`Checking '${repos}' is being ...`);
