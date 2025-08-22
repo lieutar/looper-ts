@@ -7,3 +7,4 @@ export * from './utils';
 export * from './list';
 export * from './setup';
 export * from './sync';
+export * from './doc';

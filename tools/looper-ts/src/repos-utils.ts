@@ -3,7 +3,8 @@ import { getStats, rmdir } from "@looper-utils/fs";
 import { projectToGhRepos, runCommand } from "./utils";
 
 export async function isReposClean(dir:string):Promise<boolean>{
-  const {stdout} = await runCommand('git', ['status'], { cwd: dir, env: {LANG:'C'} });
+  const {stdout} = await runCommand('git', ['status'],
+    { cwd: dir, env: {LANG:'C'}, echoOff: true, noError: true });
   if(stdout.match(/\bnothing to commit, working tree clean/)) return false;
   return true;
 }
@@ -11,7 +12,7 @@ export async function isReposClean(dir:string):Promise<boolean>{
 export async function hasUnpushedChange(dir:string):Promise<boolean>{
   const {stdout} = await runCommand('git', ['log', 'origin/main..main'],
     { cwd: dir, env: {LANG: 'C'}, echoOff: true, noError: true});
-  return !!(stdout.match(/push/));
+  return !!(stdout.match(/[^\s]/));
 }
 
 export async function isReposExists(repos:string){

@@ -4,6 +4,7 @@ import { list  } from './list';
 import yargs  from 'yargs';
 import { hideBin } from 'yargs/helpers';
 import { sync } from "./sync";
+import { doc } from "./doc";
 
 const argv = yargs(hideBin(process.argv))
   .strict()
@@ -28,6 +29,7 @@ const argv = yargs(hideBin(process.argv))
     }))
   .command('sync',  'Update all managed projects by new settings')
   .command('setup', 'Setup a project')
+  .command('doc',   'Build READMEs from README.dxml')
   .argv;
 
 switch((argv as any)._[0]){
@@ -39,5 +41,8 @@ switch((argv as any)._[0]){
     break;
   case 'setup':
     await setup(process.cwd());
+    break;
+  case 'doc':
+    await doc(process.cwd());
     break;
 }

@@ -24,6 +24,9 @@
   },
   "dependencies": {
     "@looper-utils/fs": "*",
+    "@looper-utils/fp": "*",
+    "dxml": "*",
+    "jsdom": "latest",
     "@types/yargs": "latest",
     "pkg-dir": "latest",
     "sort-package-json": "latest",
