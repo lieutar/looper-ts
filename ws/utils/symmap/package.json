@@ -1,0 +1,38 @@
+{
+  "name": "symmap",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Symbol registry like Lisp obarray",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./src/index.ts"
+    }
+  },
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "check": "bun run lint && bun run typecheck",
+    "clean": "rm -r dist",
+    "coverage": "vitest: --coverage",
+    "coverage:bun": "bun test --coverage",
+    "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
+    "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx --fix",
+    "test": "vitest",
+    "typecheck": "tsc -p tsconfig.build.json --noEmit"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@vitest/coverage-v8": "latest",
+    "depcheck": "latest",
+    "eslint": "latest",
+    "eslint-config-prettier": "latest",
+    "eslint-plugin-prettier": "latest",
+    "looper-ts": "*",
+    "tsup": "^8.5.0",
+    "vitest": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}

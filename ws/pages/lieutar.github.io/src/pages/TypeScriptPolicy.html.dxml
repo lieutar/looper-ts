@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<sec xmlns="/xml/xmlns/draft.rng"
+     lang="ja"><!-- ルート要素の lang により d 要素のデフォルト lang を設定する -->
+  <!-- d 要素はそこがドラフトであることを示し、ネストした d要素で他候補を示す -->
+  <title>
+    <d>
+      TypeScript におけるコーディングポリシー
+      <d lang="en">Policy on My TypeScript Programming</d>
+    </d>
+  </title>
+  <sec>
+    <title>
+      <d>型定義<d lang="en">Type Definition</d></d>
+    </title>
+    <sec>
+      <title>Modules</title>
+      <!-- 要素の内部では MarkDown 記法を用いることができる -->
+      <d>
+        - 型定義は types.ts で行う
+        - 複雑になる場合は types/**/*.ts で行い types/index.ts で再エクスポートする
+        - 型定義モジュールにはガード関数も含む
+        <d lang="en">
+          - Type definitions are done in types.ts
+          - If they are complicated, do them in types/**/*.ts and
+            re-export them in types/index.ts
+          - The type definition module also contains guard functions
+        </d>
+      </d>
+    </sec>
+    <sec>
+      <title><d>命名規則<d lang="en">Naming Rules</d></d></title>
+      <d>
+        - 型は原則的に `FooBarType` のように `-Type` サフィクスを用いる
+        <d lang="en">
+          - Types use the `-Type` suffix, e.g. `FooBarType`.
+        </d>
+      </d>
+      <d>
+        - インターフェイスは IFooBar のように `I-` プレフィクスを用いる
+        <d lang="en">
+          - Interfaces use the `I-` prefix, e.g. `IFooBar`.
+        </d>
+      </d>
+      <d>
+        - クラスは上記パターンにあてはまらない任意のPascalCase だが、もし、
+          Type で終わるクラスを作るならば -TypeObject というように `-Object`
+          サフィクスを用いる
+        <d lang="en">
+          - Classes can be any PascalCase that does not fit the above patterns,
+            but if you create a class that ends with
+            Type, use the `-Object` suffix, e.g. `-TypeObject`.
+        </d>
+      </d>
+      <d>
+        - Abstract クラスは Abstract- プリフィクスを用いる。
+        <d lang="en">
+          - Abstract classes use the `Abstract-` prefix.
+        </d>
+      </d>
+    </sec>
+  </sec>
+</sec>

@@ -1,0 +1,60 @@
+{
+  "name": "lieutar.github.io",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./src/index.ts"
+    }
+  },
+  "types": "dst/esm/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "check": "bun run lint && bun run typecheck",
+    "clean": "rm -r dist",
+    "coverage": "vitest: --coverage",
+    "coverage:bun": "bun test --coverage",
+    "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
+    "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx --fix",
+    "test": "vitest",
+    "typecheck": "tsc -p tsconfig.build.json --noEmit"
+  },
+  "dependencies": {
+    "cnode": "*",
+    "cnode-scroute": "*",
+    "dom-processor": "*",
+    "domlib": "*",
+    "dxml": "*",
+    "dxml-publi": "*",
+    "eero": "*",
+    "fancy-logger": "*",
+    "publi": "*",
+    "qoop": "*",
+    "scroute": "*",
+    "stylo": "*"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/mock-fs": "^4.13.4",
+    "@types/node": "^22.15.18",
+    "@typescript-eslint/eslint-plugin": "^8.33.0",
+    "@typescript-eslint/parser": "^8.33.0",
+    "@vitest/coverage-v8": "latest",
+    "bun-types": "^1.2.14",
+    "depcheck": "latest",
+    "eslint": "latest",
+    "eslint-config-prettier": "latest",
+    "eslint-plugin-prettier": "latest",
+    "find-up": "^7.0.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.0.0",
+    "looper-ts": "*",
+    "pkg-dir": "^8.0.0",
+    "prettier": "^3.5.3",
+    "prettifier": "^0.4.0",
+    "vitest": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sec lang="ja">
+  <title>qoop</title>
+  Quick OOP
+  <sec>
+    <title>Mixins</title>
+    <sec>
+      <title>`Qoop()`</title>
+    </sec>
+    <sec>
+      <title>`WithFeatures(BaseClass, ... Features)`</title>
+      ``` typescript
+      
+      interface IBar {
+      get attr(): string;
+      meth (): string;
+      };
+      
+      class Bar extends Feature(){
+        static applyFeature(Base: Constructor){
+          const {self, d} = fMixinTools(Bar as IFeatureClass&lt;IBar&gt;);
+          return class extends Base{
+            get attr(){ return self(this).attr as string; }
+            meth = d('meth') as ()=>string;
+            constructor(... args: any[]){
+              super(... args);
+              new Bar().inject(this);
+            }
+          }
+        }
+        readonly attr = 'bar';
+        meth(){ return 'meth'; }
+      }
+      
+      const FBar = Bar as IFeatureClass&lt;IBar&gt;
+      
+      class Foo extends WithFeatures( QoopObject(), FBar ){
+      }
+      
+      describe('feature', ()=>{
+        const foo = new Foo();
+        test('basic', ()=>{
+          expect(foo.attr).toEqual('bar');
+          expect(foo.meth()).toEqual('meth');
+        });
+      });
+            
+      ```
+      - <d>Feature Feature() ミックスインの直接のサブクラスである必要があり、さらに継承してはならない。</d>
+    </sec>
+  </sec>
+  <sec>
+    <title>Decolators</title>
+    <sec>
+      <title>`@Prop`</title>
+      ``` typescript
+      @Prop() declare someProp: SomePropType;
+      ```
+    </sec>
+    <sec>
+      <title>`@Setter`</title>
+      ``` typescript
+      @Setter('foo') setFoo(_:FooType){ throw new Error(); }
+      ```
+    </sec>
+    <sec>
+      <title>`@Delegate`</title>
+    </sec>
+    <sec>
+      <title>`@LazyInit`</title>
+    </sec>
+  </sec>
+</sec>

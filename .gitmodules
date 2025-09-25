@@ -1,0 +1,78 @@
+[submodule "ws/at-utils/fs"]
+	path = ws/at-utils/fs
+	url = git@github.com:lieutar/ts--at-utils--fs
+[submodule "ws/at-utils/path"]
+	path = ws/at-utils/path
+	url = git@github.com:lieutar/ts--at-utils--path
+[submodule "/home/lieutar/work/ts/ws/at-utils/record"]
+	path = /home/lieutar/work/ts/ws/at-utils/record
+	url = git@github.com:lieutar/ts--at-utils--record
+[submodule "ws/at-utils/string"]
+	path = ws/at-utils/string
+	url = git@github.com:lieutar/ts--at-utils--string
+[submodule "ws/at-utils/types"]
+	path = ws/at-utils/types
+	url = git@github.com:lieutar/ts--at-utils--types
+[submodule "ws/dom/domlib"]
+	path = ws/dom/domlib
+	url = git@github.com:lieutar/ts--dom--domlib
+[submodule "ws/utils/symmap"]
+	path = ws/utils/symmap
+	url = git@github.com:lieutar/ts--utils--symmap
+[submodule "ws/utils/fancy-logger"]
+	path = ws/utils/fancy-logger
+	url = git@github.com:lieutar/ts--utils--fancy-logger
+[submodule "ws/utils/qoop"]
+	path = ws/utils/qoop
+	url = git@github.com:lieutar/ts--utils--qoop
+[submodule "ws/utils/context-stack"]
+	path = ws/utils/context-stack
+	url = git@github.com:lieutar/ts--utils--context-stack
+[submodule "ws/glsl/glslpl"]
+	path = ws/glsl/glslpl
+	url = git@github.com:lieutar/ts--glsl--glslpl
+[submodule "ws/dxml/dxml-cli"]
+	path = ws/dxml/dxml-cli
+	url = git@github.com:lieutar/ts--dxml--dxml-cli
+[submodule "ws/dxml/dxml"]
+	path = ws/dxml/dxml
+	url = git@github.com:lieutar/ts--dxml--dxml
+[submodule "ws/dxml/dxml-publi"]
+	path = ws/dxml/dxml-publi
+	url = git@github.com:lieutar/ts--dxml--dxml-publi
+[submodule "ws/style/stylo"]
+	path = ws/style/stylo
+	url = git@github.com:lieutar/ts--style--stylo
+[submodule "ws/style/eero"]
+	path = ws/style/eero
+	url = git@github.com:lieutar/ts--style--eero
+[submodule "ws/pages/lieutar.github.io"]
+	path = ws/pages/lieutar.github.io
+	url = git@github.com:lieutar/lieutar.github.io
+[submodule "ws/plotgen/charnamegen"]
+	path = ws/plotgen/charnamegen
+	url = git@github.com:lieutar/ts--plotgen--charnamegen
+[submodule "ws/web/cnode-scroute"]
+	path = ws/web/cnode-scroute
+	url = git@github.com:lieutar/ts--web--cnode-scroute
+[submodule "ws/web/scroute"]
+	path = ws/web/scroute
+	url = git@github.com:lieutar/ts--web--scroute
+[submodule "ws/web/publi"]
+	path = ws/web/publi
+	url = git@github.com:lieutar/ts--web--publi
+[submodule "ws/web/cnode"]
+	path = ws/web/cnode
+	url = git@github.com:lieutar/ts--web--cnode
+[submodule "ws/ongaku/ongaku"]
+	path = ws/ongaku/ongaku
+	url = git@github.com:lieutar/ts--ongaku--ongaku
+[submodule "ws/dom/dom-processor"]
+	path = ws/dom/dom-processor
+	url = git@github.com:lieutar/ts--dom--dom-processor
+[submodule "ws/at-utils/fp"]
+	path = ws/at-utils/fp
+	url = git@github.com:lieutar/ts--at-utils--fp
+[submodule "ws/utils/looper-utils"]
+	path = ws/utils/looper-utils
+	url = git@github.com:lieutar/ts--utils--looper-utils

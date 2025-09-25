@@ -1,0 +1,50 @@
+{
+  "name": "dxml-cli",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "check": "bun run lint && bun run typecheck",
+    "clean": "rm -r dist",
+    "coverage": "vitest: --coverage",
+    "coverage:bun": "bun test --coverage",
+    "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
+    "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx --fix",
+    "prepublishOnly": "npm run build",
+    "test": "vitest",
+    "typecheck": "tsc -p tsconfig.build.json --noEmit"
+  },
+  "dependencies": {
+    "looper-utils": "*",
+    "context-stack": "*",
+    "dom-processor": "*",
+    "domlib": "*",
+    "dxml": "*",
+    "@types/jsdom": "^21.1.7",
+    "@types/yargs": "^17.0.33",
+    "fp-ts": "^2.16.10",
+    "jsdom": "^26.1.0",
+    "qoop": "*",
+    "yargs": "^18.0.0"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@vitest/coverage-v8": "latest",
+    "depcheck": "latest",
+    "eslint": "latest",
+    "eslint-config-prettier": "latest",
+    "eslint-plugin-prettier": "latest",
+    "looper-ts": "*",
+    "vitest": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}

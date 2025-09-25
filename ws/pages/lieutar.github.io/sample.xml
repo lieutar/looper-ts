@@ -1,0 +1,26 @@
+<sec xmlns="/xml/xmlns/draft.rng" lang="ja">
+  
+  <title>
+    <paragraph>Policy on My TypeScript Programming</paragraph>
+  </title>
+  <sec>
+    <title>
+      <paragraph>Type Definition</paragraph>
+    </title>
+    <sec>
+      <title><paragraph>Modules</paragraph></title>
+      
+      <list ordered="false" start="null" spread="false"><listItem spread="false" checked="null"><paragraph>Type definitions are done in types.ts</paragraph></listItem><listItem spread="false" checked="null"><paragraph>If they are complicated, do them in types/**/*.ts and
+re-export them in types/index.ts</paragraph></listItem><listItem spread="false" checked="null"><paragraph>The type definition module also contains guard functions</paragraph></listItem></list>
+    </sec>
+    <sec>
+      <title><paragraph>Naming Rules</paragraph></title>
+      <list ordered="false" start="null" spread="false"><listItem spread="false" checked="null"><paragraph>Types use the -Type suffix, e.g. <inlineCode>FooBarType</inlineCode>.</paragraph><list ordered="false" start="null" spread="false"><listItem spread="false" checked="null"><paragraph>Type definitions can be complex, so within modules,
+use camelCase abbreviations and export aliases.</paragraph></listItem><listItem spread="false" checked="null"><paragraph>The abbreviations use the -T suffix.</paragraph></listItem><listItem spread="false" checked="null"><paragraph>Using Simplified Notation is for complex type definitions.
+However, complex type definition isn't recommended except for
+structures like DSL.</paragraph></listItem></list></listItem><listItem spread="false" checked="null"><paragraph>Interfaces use the I- prefix, e.g. <inlineCode>IFooBar</inlineCode>.</paragraph></listItem><listItem spread="false" checked="null"><paragraph>Classes can be any PascalCase that does not fit the above patterns,
+but if you create a class that ends with
+Type, use the -Object suffix, e.g. <inlineCode>-TypeObject</inlineCode>.</paragraph><list ordered="false" start="null" spread="false"><listItem spread="false" checked="null"><paragraph>Abstract classes use the <inlineCode>Abstract-</inlineCode> prefix.</paragraph></listItem></list></listItem></list>
+    </sec>
+  </sec>
+</sec>

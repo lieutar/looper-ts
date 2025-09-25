@@ -1,0 +1,15 @@
+{
+  "name": "@looper",
+  "private": true,
+  "workspaces": [
+    "tools/*",
+    "ws/dom/*",
+    "ws/dxml/*",
+    "ws/glsl/*",
+    "ws/ongaku/*",
+    "ws/pages/*",
+    "ws/style/*",
+    "ws/utils/*",
+    "ws/web/*"
+  ]
+}

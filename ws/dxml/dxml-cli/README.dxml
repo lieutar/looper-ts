@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sec lang="ja">
+  <title>dxml-cli</title>
+  CLI interface for [dxml](ws:/dsml/dxml).
+  <sec><!--==================================================================-->
+    <title>SYNOPSIS</title>
+    ``` bash
+    $&gt; dxml -s md -o output.md input.dxml
+    ```
+  </sec>
+  <sec><!--==================================================================-->
+    <title>OPTIONS</title>
+    <sec>
+      <title>`--output` `-o`</title>
+      Output file path.
+    </sec>
+    <sec>
+      <title>`--lang`</title>
+      Target language for trimming/processing
+    </sec>
+    <sec>
+      <title>`--pp` `-p`</title>
+      Preprocessor.
+    </sec>
+    <sec>
+      <title>`--style` `-s`</title>
+      Specify output style
+    </sec>
+  </sec>
+</sec>

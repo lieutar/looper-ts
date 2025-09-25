@@ -1,0 +1,44 @@
+{
+  "name": "dxml",
+  "version": "0.0.1",
+  "private": true,
+  "description": "",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./src/index.ts"
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "check": "bun run lint && bun run typecheck",
+    "clean": "rm -r dist",
+    "coverage": "vitest: --coverage",
+    "coverage:bun": "bun test --coverage",
+    "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
+    "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx --fix",
+    "test": "vitest",
+    "typecheck": "tsc -p tsconfig.build.json --noEmit"
+  },
+  "dependencies": {
+    "domlib": "*",
+    "fp-ts": "^2.16.10",
+    "remark-gfm": "^4.0.1",
+    "remark-parse": "^11.0.0",
+    "unified": "^11.0.5"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@vitest/coverage-v8": "latest",
+    "depcheck": "latest",
+    "eslint": "latest",
+    "eslint-config-prettier": "latest",
+    "eslint-plugin-prettier": "latest",
+    "looper-ts": "*",
+    "vitest": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}

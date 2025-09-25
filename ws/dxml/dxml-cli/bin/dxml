@@ -1,0 +1,2 @@
+#! /usr/bin/bash
+bun run $(dirname $(realpath $BASH_SOURCE))/dxml.ts $*
