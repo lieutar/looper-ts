@@ -11,7 +11,7 @@
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
     "check": "bun run lint && bun run typecheck",
-    "clean": "rm -r dist",
+    "clean": "rm -r dist/*",
     "coverage": "vitest: --coverage",
     "coverage:bun": "bun test --coverage",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
