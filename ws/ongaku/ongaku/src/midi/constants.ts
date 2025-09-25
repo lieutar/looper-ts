@@ -1,7 +1,7 @@
 export const DIVISION = 480;
 export const TICKS_OF_WHOLE_NOTE = DIVISION * 4;
 export const TONE_NAMES = ["C","C#","D","D#","E",
-                           "F","F#","G","G#","A","A#","B"];
+                           "F","F#","G","G#","A","A#","B"] as const;
 export const BPM = 120;
 export const microsecondsPerBeat = 60000000 / BPM;
 
